@@ -20,6 +20,11 @@ spring:
   config:
     activate:
       on-profile: '!api-docs'
+  cloud:
+    loadbalancer:
+      clients:
+
+
 springdoc:
   api-docs:
     enabled: false
@@ -129,6 +134,7 @@ server:
     session:
       cookie:
         http-only: true
+    context-path: /wconnector-app
 
 springdoc:
   show-actuator: true

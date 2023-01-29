@@ -1,7 +1,8 @@
 package com.coremal.wconnector.app.config;
 
-import com.coremal.wconnector.app.security.*;
-import com.coremal.wconnector.app.security.jwt.*;
+import com.coremal.wconnector.app.security.AuthoritiesConstants;
+import com.coremal.wconnector.app.security.jwt.JWTConfigurer;
+import com.coremal.wconnector.app.security.jwt.TokenProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpMethod;
@@ -42,7 +43,7 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        // @formatter:off
+
         http
             .csrf()
             .disable()
@@ -72,6 +73,7 @@ public class SecurityConfiguration {
             .antMatchers("/test/**").permitAll()
             .antMatchers("/api/authenticate").permitAll()
             .antMatchers("/api/admin/**").hasAuthority(AuthoritiesConstants.ADMIN)
+            .antMatchers("/api/usuarios/**").permitAll()
             .antMatchers("/api/**").authenticated()
             .antMatchers("/management/health").permitAll()
             .antMatchers("/management/health/**").permitAll()
