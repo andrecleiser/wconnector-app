@@ -1,0 +1,49 @@
+{
+  "applications": "*",
+  "changelogDate": "20230204101318",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "pedido_bloqueado_resumo",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "vendedor",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "cliente",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "filial",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "valor",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dataEmissao",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dataEntrada",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tiposBloqueio",
+      "fieldType": "TipoBloqueioEnum",
+      "fieldValues": "DP,MB"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "PedidoBloqueadoResumo",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

@@ -3,6 +3,7 @@ package com.coremal.wconnector.app.config;
 import com.coremal.wconnector.app.security.AuthoritiesConstants;
 import com.coremal.wconnector.app.security.jwt.JWTConfigurer;
 import com.coremal.wconnector.app.security.jwt.TokenProvider;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpMethod;
@@ -20,6 +21,7 @@ import tech.jhipster.config.JHipsterProperties;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 @Import(SecurityProblemSupport.class)
+@RequiredArgsConstructor
 public class SecurityConfiguration {
 
     private final JHipsterProperties jHipsterProperties;
@@ -29,63 +31,64 @@ public class SecurityConfiguration {
     private final CorsFilter corsFilter;
     private final SecurityProblemSupport problemSupport;
 
-    public SecurityConfiguration(
-        TokenProvider tokenProvider,
-        CorsFilter corsFilter,
-        JHipsterProperties jHipsterProperties,
-        SecurityProblemSupport problemSupport
-    ) {
-        this.tokenProvider = tokenProvider;
-        this.corsFilter = corsFilter;
-        this.problemSupport = problemSupport;
-        this.jHipsterProperties = jHipsterProperties;
-    }
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
         http
             .csrf()
             .disable()
             .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
             .exceptionHandling()
-                .authenticationEntryPoint(problemSupport)
-                .accessDeniedHandler(problemSupport)
-        .and()
+            .authenticationEntryPoint(problemSupport)
+            .accessDeniedHandler(problemSupport)
+            .and()
             .headers()
-                .contentSecurityPolicy(jHipsterProperties.getSecurity().getContentSecurityPolicy())
+            .contentSecurityPolicy(jHipsterProperties.getSecurity().getContentSecurityPolicy())
             .and()
-                .referrerPolicy(ReferrerPolicyHeaderWriter.ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN)
+            .referrerPolicy(ReferrerPolicyHeaderWriter.ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN)
             .and()
-                .permissionsPolicy().policy("camera=(), fullscreen=(self), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), sync-xhr=()")
+            .permissionsPolicy()
+            .policy(
+                "camera=(), fullscreen=(self), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), sync-xhr=()"
+            )
             .and()
-                .frameOptions().sameOrigin()
-        .and()
+            .frameOptions()
+            .sameOrigin()
+            .and()
             .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        .and()
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
             .authorizeRequests()
-            .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-            .antMatchers("/app/**/*.{js,html}").permitAll()
-            .antMatchers("/i18n/**").permitAll()
-            .antMatchers("/content/**").permitAll()
-            .antMatchers("/swagger-ui/**").permitAll()
-            .antMatchers("/test/**").permitAll()
-            .antMatchers("/api/authenticate").permitAll()
-            .antMatchers("/api/admin/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/api/usuarios/**").permitAll()
-            .antMatchers("/api/**").authenticated()
-            .antMatchers("/management/health").permitAll()
-            .antMatchers("/management/health/**").permitAll()
-            .antMatchers("/management/info").permitAll()
-            .antMatchers("/management/prometheus").permitAll()
-            .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN)
-        .and()
+            .antMatchers(HttpMethod.OPTIONS, "/**")
+            .permitAll()
+            .antMatchers("/app/**/*.{js,html}")
+            .permitAll()
+            .antMatchers("/i18n/**")
+            .permitAll()
+            .antMatchers("/content/**")
+            .permitAll()
+            .antMatchers("/swagger-ui/**")
+            .hasAuthority(AuthoritiesConstants.ADMIN)
+            .antMatchers("/test/**")
+            .hasAuthority(AuthoritiesConstants.ADMIN)
+            .antMatchers("/api/login")
+            .permitAll()
+            .antMatchers("/api/admin/**")
+            .hasAuthority(AuthoritiesConstants.ADMIN)
+            .antMatchers("/api/**")
+            .authenticated()
+            .antMatchers("/management/health/**")
+            .hasAuthority(AuthoritiesConstants.ADMIN)
+            .antMatchers("/management/info")
+            .hasAuthority(AuthoritiesConstants.ADMIN)
+            .antMatchers("/management/prometheus")
+            .permitAll()
+            .antMatchers("/management/**")
+            .hasAuthority(AuthoritiesConstants.ADMIN)
+            .and()
             .httpBasic()
-        .and()
+            .and()
             .apply(securityConfigurerAdapter());
         return http.build();
-        // @formatter:on
     }
 
     private JWTConfigurer securityConfigurerAdapter() {

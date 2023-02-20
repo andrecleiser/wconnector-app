@@ -60,7 +60,7 @@ jhipster:
     authentication:
       jwt:
         # This token must be encoded using Base64 and be at least 256 bits long (you can type `openssl rand -base64 64` on your command line to generate a 512 bits one)
-#        base64-secret: ODQyYzNkOGY1MGY5ZmY3NTA0NTQ4MDVmYTQ2ODc1MGRkOTg0ZjUwNGI3MGQyYzNiNmNmMjZiNzMwNzRmYjkyZTczZDE0ODNiYjhjMGYzNmNmZmI2MTBkNTEzODE0ODEwNGIxZDE3YmQ0ODgzYmFkNTRhOWMzN2FhZTU4YWM2ZDk=
+        #        base64-secret: ODQyYzNkOGY1MGY5ZmY3NTA0NTQ4MDVmYTQ2ODc1MGRkOTg0ZjUwNGI3MGQyYzNiNmNmMjZiNzMwNzRmYjkyZTczZDE0ODNiYjhjMGYzNmNmZmI2MTBkNTEzODE0ODEwNGIxZDE3YmQ0ODgzYmFkNTRhOWMzN2FhZTU4YWM2ZDk=
         base64-secret: NDY1MjIyODFkMWE4MGI2OGM5NzJhY2Y1M2M2NDRjMGExMGJjMDg5ZTU4YWVkMmZkNjA3ODZjMzI4Mjg0ZmU5MzZlMTQ2ODhlZjI2MTA2ZTllMDRmODBhOWU1MGJjNWVmZjgwNGE3NWMxM2YxNDUyMGY4OTNhNmY5NDhmOGU5NDU=
 
         # Token is valid 24 hours
@@ -85,4 +85,6 @@ jhipster:
 # application:
 wconnector-api:
   recurso:
-    usuario: 'localhost:8081/wconnector-api/api/usuarios'
+    usuario: localhost:8081/api/usuarios
+    login: localhost:8081/api/login
+    pedidos-bloqueados: localhost:8081/api/pedidos-bloqueados

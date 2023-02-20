@@ -4,13 +4,15 @@ import { Observable } from 'rxjs';
 import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
 
 import { ApplicationConfigService } from '../config/application-config.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   constructor(
     private localStorageService: LocalStorageService,
     private sessionStorageService: SessionStorageService,
-    private applicationConfigService: ApplicationConfigService
+    private applicationConfigService: ApplicationConfigService,
+    private router: Router
   ) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -21,7 +23,9 @@ export class AuthInterceptor implements HttpInterceptor {
 
     const token: string | null =
       this.localStorageService.retrieve('authenticationToken') ?? this.sessionStorageService.retrieve('authenticationToken');
-    if (token) {
+    if (!token) {
+      this.router.navigate(['/login']);
+    } else {
       request = request.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`,

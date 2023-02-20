@@ -1,0 +1,9 @@
+<div class="container">
+  <div class="row g-3">
+    <ng-container *ngIf="listaPedidosBloqueados$ | async as listaPedidosBloqueados">
+      <div *ngFor="let pedidoBloqueadoResumo of listaPedidosBloqueados" class="col-12 col-md-6 col-lg-4">
+        <jhi-pedido-bloqueado-detalhe [pedidoBloqueadoResumo]="pedidoBloqueadoResumo"></jhi-pedido-bloqueado-detalhe>
+      </div>
+    </ng-container>
+  </div>
+</div>

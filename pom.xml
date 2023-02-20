@@ -6,10 +6,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.coremal.wconnector.app</groupId>
-    <artifactId>w-connector-app</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>wconnector-app</artifactId>
+    <version>ENTREGA-1</version>
     <packaging>jar</packaging>
-    <name>W Connector App</name>
+    <name>WConnectorApp</name>
     <description>Description for wConnectorApp</description>
 
     <repositories>
@@ -362,6 +362,11 @@
                                 <groupId>org.springframework.boot</groupId>
                                 <artifactId>spring-boot-configuration-processor</artifactId>
                                 <version>${spring-boot.version}</version>
+                            </path>
+                            <path>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                                <version>${lombok.version}</version>
                             </path>
                             <path>
                                 <groupId>org.mapstruct</groupId>

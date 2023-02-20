@@ -5,6 +5,13 @@ function setupProxy({ tls }) {
       target: `http${tls ? 's' : ''}://localhost:8080`,
       secure: false,
       changeOrigin: tls,
+      // devServer: {
+      //   client: {
+      //     webSocketURL: {
+      //       hostname: '4422-85-241-151-186.eu.ngrok.io'
+      //     },
+      //   }
+      // }
     },
   ];
   return conf;

@@ -1,4 +1,4 @@
-package com.coremal.wconnector.app.interceptor;
+package com.coremal.wconnector.app.service.interceptor;
 
 import com.coremal.wconnector.app.security.SecurityUtils;
 import feign.RequestInterceptor;

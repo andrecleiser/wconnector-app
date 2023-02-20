@@ -1,0 +1,26 @@
+<div class="card">
+  <div class="card-header">
+    <span class="titulo-card">Pedido bloqueado</span>
+  </div>
+  <div class="card-body">
+    <span class="card-title titulo-card">Vendedor</span>
+    <p class="card-text">{{ pedidoBloqueadoResumo.vendedor }}</p>
+    <span class="card-title titulo-card">Cliente</span>
+    <p class="card-text">{{ pedidoBloqueadoResumo.cliente }}</p>
+    <span class="card-title titulo-card">Filial</span>
+    <p class="card-text">{{ pedidoBloqueadoResumo.filial }}</p>
+    <span class="card-title titulo-card">Valor</span>
+    <p class="card-text">{{ pedidoBloqueadoResumo.valor | currency }}</p>
+    <span class="card-title titulo-card">Emissão</span>
+    <p class="card-text">{{ pedidoBloqueadoResumo.dataEmissao | date: 'dd-MM-yyyy' }}</p>
+    <span class="card-title titulo-card">Entrada</span>
+    <p class="card-text">{{ pedidoBloqueadoResumo.dataEntrada | date: 'dd-MM-yyyy' }}</p>
+    <p class="card-title titulo-card">Bloqueio(s)</p>
+
+    <p-tag *ngFor="let tipoBloqueio of pedidoBloqueadoResumo.tiposBloqueio" class="tag-pedido-bloqueado" severity="danger" [rounded]="true">
+      {{ tipoBloqueio }}
+    </p-tag>
+    <hr />
+    <button class="btn btn-primary">Detalhar</button>
+  </div>
+</div>
