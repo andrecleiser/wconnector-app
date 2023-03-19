@@ -2,6 +2,7 @@ package com.coremal.wconnector.app.web.rest;
 
 import com.coremal.wconnector.app.domain.pedido.PedidoBloqueadoResumo;
 import com.coremal.wconnector.app.security.AuthoritiesConstants;
+import com.coremal.wconnector.app.security.SecurityUtils;
 import com.coremal.wconnector.app.service.client.PedidoBloqueadoConnectorClient;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +24,15 @@ public class PedidoBloqueadoController {
     @GetMapping("all")
     @Secured(AuthoritiesConstants.USER)
     public ResponseEntity<List<PedidoBloqueadoResumo>> getAllUsuarios() {
-        log.debug("REST request para obter pedidos bloqueados.");
+        log.debug("[Request] Obter todos os pedidos bloqueados ao usuário {}.", SecurityUtils.getCurrentUserLogin().orElse(null));
+
         var pedidosBloqueados = this.pedidoBloqueadoConnectorClient.getAllPedidosBloqueados();
+        log.debug(
+            "[Response] Obtidos {} pedidos bloqueados pelo usuário {}.",
+            pedidosBloqueados.size(),
+            SecurityUtils.getCurrentUserLogin().orElse(null)
+        );
+
         return ResponseEntity.ok().body(pedidosBloqueados);
     }
     //
