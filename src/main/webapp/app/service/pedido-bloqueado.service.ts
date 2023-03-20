@@ -10,6 +10,6 @@ export class PedidoBloqueadoService {
   constructor(private http: HttpClient) {}
 
   public getAllPedidosBloqueados(): Observable<IPedidoBloqueadoResumo[]> {
-    return this.http.get<IPedidoBloqueadoResumo[]>('api/pedidos-bloqueados/all');
+    return this.http.get<IPedidoBloqueadoResumo[]>('api/pedidos/bloqueados');
   }
 }
