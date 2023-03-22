@@ -83,8 +83,3 @@ jhipster:
 # ===================================================================
 
 # application:
-wconnector-api:
-  recurso:
-    usuario: localhost:8081/api/usuarios
-    login: localhost:8081/api/login
-    pedidos-bloqueados: localhost:8081/api/pedidos/bloqueados
