@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IPedidoBloqueadoResumo } from '../models/Pedido/pedido-bloqueado-resumo';
-import { IItemPedido } from '../models/Pedido/item-pedido';
-import { IBloqueioPedido } from '../models/Pedido/bloqueio-pedido';
+import { PedidoBloqueadoResumo } from '../models/Pedido/pedido-bloqueado-resumo';
+import { ItemPedido } from '../models/Pedido/item-pedido';
+import { BloqueioPedido } from '../models/Pedido/bloqueio-pedido';
+import { DesbloqueioPedido } from '../models/Pedido/desbloqueio-pedido';
 
 @Injectable({
   providedIn: 'root',
@@ -11,15 +12,25 @@ import { IBloqueioPedido } from '../models/Pedido/bloqueio-pedido';
 export class PedidoBloqueadoService {
   constructor(private http: HttpClient) {}
 
-  public getAllPedidosBloqueados(): Observable<IPedidoBloqueadoResumo[]> {
-    return this.http.get<IPedidoBloqueadoResumo[]>('api/pedidos/bloqueados');
+  public getAllPedidosBloqueados(): Observable<PedidoBloqueadoResumo[]> {
+    return this.http.get<PedidoBloqueadoResumo[]>('api/pedidos/bloqueados');
   }
 
-  public getItensPedido(idPedido: string): Observable<IItemPedido[]> {
-    return this.http.get<IItemPedido[]>(`api/pedidos/${idPedido}/itens`);
+  public getItensPedido(idPedido: string): Observable<ItemPedido[]> {
+    return this.http.get<ItemPedido[]>(`api/pedidos/${idPedido}/itens`);
   }
 
-  public getBloqueiosPedido(idPedido: string): Observable<IBloqueioPedido[]> {
-    return this.http.get<IBloqueioPedido[]>(`api/pedidos/${idPedido}/bloqueios`);
+  public getBloqueiosPedido(idPedido: string): Observable<BloqueioPedido[]> {
+    return this.http.get<BloqueioPedido[]>(`api/pedidos/${idPedido}/bloqueios`);
+  }
+
+  public desbloquearPedido(idPedido: string, desbloqueioPedido: DesbloqueioPedido): Observable<object> {
+    const options = { headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded') };
+
+    return this.http.put(
+      `api/pedidos/${idPedido}/bloqueios/${desbloqueioPedido.idBloqueio}/desbloquear`,
+      desbloqueioPedido.justificativaDesbloqueio,
+      options
+    );
   }
 }

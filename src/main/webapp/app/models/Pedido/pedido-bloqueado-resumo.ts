@@ -1,6 +1,6 @@
-import { TipoBloqueioEnum } from './TipoBloqueioEnum';
+import { TipoBloqueioEnum } from './tipo-bloqueio-enum';
 
-export interface IPedidoBloqueadoResumo {
+export interface PedidoBloqueadoResumo {
   id?: string;
   vendedor?: string;
   cliente?: string;
@@ -9,5 +9,4 @@ export interface IPedidoBloqueadoResumo {
   dataEmissao?: Date;
   dataEntrada?: Date;
   tiposBloqueio?: TipoBloqueioEnum[];
-  justificativaDesbloqueio?: string;
 }
