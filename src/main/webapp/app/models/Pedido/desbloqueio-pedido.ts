@@ -1,4 +1,4 @@
 export interface DesbloqueioPedido {
-  idBloqueio?: number;
-  justificativaDesbloqueio?: string;
+  bloqueioId?: number;
+  justificativa?: string;
 }

@@ -5,6 +5,8 @@ import { MessageService } from 'primeng/api';
 import { PedidoDetalhesComponent } from '../pedido-detalhes/pedido-detalhes.component';
 import { DesbloqueioPedido } from '../../../models/Pedido/desbloqueio-pedido';
 import { PedidoBloqueadoService } from '../../../service/pedido-bloqueado.service';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'jhi-pedido-bloqueado-detalhe',
@@ -40,11 +42,21 @@ export class PedidoBloqueadoResumoComponent implements OnInit {
       if (desbloqueioPedido) {
         this.pedidoBloqueadoService
           .desbloquearPedido(this.pedidoBloqueadoResumo.id!, desbloqueioPedido)
+          .pipe(
+            catchError(erro =>
+              throwError(() =>
+                this.messageService.add({
+                  key: 'tc',
+                  severity: 'error',
+                  summary: 'Erro',
+                  detail: `Falha ao desbloquear pedido: ${JSON.stringify(erro)}`,
+                })
+              )
+            )
+          )
           .subscribe(() =>
             this.messageService.add({ key: 'tc', severity: 'success', summary: 'Desbloqueio', detail: 'Pedido desbloqueado com sucesso!' })
           );
-      } else {
-        this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Cancelado', detail: 'Pedido de desbloqueio cancelado!' });
       }
     });
   }

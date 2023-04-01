@@ -54,6 +54,14 @@
 </div>
 <div class="mb-3 mt-lg-3">
   <label for="justificativa" class="form-label">Justificativa ao desbloqueio</label>
-  <input #justificativa type="email" class="form-control" id="justificativa" placeholder="Indique uma justificativa ao desbloqueio" />
+  <input
+    #justificativa
+    type="email"
+    class="form-control"
+    id="justificativa"
+    placeholder="Indique uma justificativa ao desbloqueio"
+    maxlength="120"
+  />
+  <small>Máximo 120 caracteres</small>
 </div>
 <p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>

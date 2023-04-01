@@ -24,13 +24,7 @@ export class PedidoBloqueadoService {
     return this.http.get<BloqueioPedido[]>(`api/pedidos/${idPedido}/bloqueios`);
   }
 
-  public desbloquearPedido(idPedido: string, desbloqueioPedido: DesbloqueioPedido): Observable<object> {
-    const options = { headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded') };
-
-    return this.http.put(
-      `api/pedidos/${idPedido}/bloqueios/${desbloqueioPedido.idBloqueio}/desbloquear`,
-      desbloqueioPedido.justificativaDesbloqueio,
-      options
-    );
+  public desbloquearPedido(idPedido: string, desbloqueioPedido: DesbloqueioPedido): Observable<void> {
+    return this.http.patch<void>(`api/pedidos/${idPedido}/desbloquear`, desbloqueioPedido);
   }
 }

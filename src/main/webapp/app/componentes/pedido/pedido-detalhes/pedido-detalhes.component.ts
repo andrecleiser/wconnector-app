@@ -46,8 +46,8 @@ export class PedidoDetalhesComponent implements OnInit {
       accept: () => {
         console.log(this.justificativa);
         const desbloqueio: DesbloqueioPedido = {
-          idBloqueio: bloqueio.id,
-          justificativaDesbloqueio: this.justificativa.nativeElement.value,
+          bloqueioId: bloqueio.id,
+          justificativa: this.justificativa.nativeElement.value,
         };
         this.ref.close(desbloqueio);
       },
