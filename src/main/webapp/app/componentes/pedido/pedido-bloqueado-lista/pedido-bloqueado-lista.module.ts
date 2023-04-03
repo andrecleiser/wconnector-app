@@ -5,10 +5,11 @@ import { PedidoBloqueadoResumoModule } from '../pedido-bloqueado-resumo/pedido-b
 import { TagModule } from 'primeng/tag';
 import { InputTextModule } from 'primeng/inputtext';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ProgressBarModule } from 'primeng/progressbar';
 
 @NgModule({
   declarations: [PedidoBloqueadoListaComponent],
   exports: [PedidoBloqueadoListaComponent],
-  imports: [CommonModule, PedidoBloqueadoResumoModule, TagModule, InputTextModule, ReactiveFormsModule],
+  imports: [CommonModule, PedidoBloqueadoResumoModule, TagModule, InputTextModule, ReactiveFormsModule, ProgressBarModule],
 })
 export class PedidoBloqueadoListaModule {}
