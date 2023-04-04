@@ -16,6 +16,7 @@ export class PedidoBloqueadoListaComponent implements OnInit, OnDestroy {
   public formConsulta!: FormGroup;
   private editFiltro$ = new Subscription();
   private listaPedidosBloqueados!: PedidoBloqueadoResumo[];
+  public carregando = false;
 
   constructor(
     private pedidoBloqueadoService: PedidoBloqueadoService,
@@ -25,7 +26,15 @@ export class PedidoBloqueadoListaComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.formConsulta = this.formBuilder.group({ editFiltro: [''] });
+    this.obterPedidosBloqueados();
+  }
 
+  ngOnDestroy(): void {
+    this.editFiltro$.unsubscribe();
+  }
+
+  obterPedidosBloqueados(): void {
+    this.carregando = true;
     this.pedidoBloqueadoService.getAllPedidosBloqueados().subscribe(lista => {
       this.listaPedidosBloqueados = lista;
       this.listaFiltradaPedidosBloqueados = lista;
@@ -41,9 +50,6 @@ export class PedidoBloqueadoListaComponent implements OnInit, OnDestroy {
             ))
         );
     });
-  }
-
-  ngOnDestroy(): void {
-    this.editFiltro$.unsubscribe();
+    this.carregando = false;
   }
 }

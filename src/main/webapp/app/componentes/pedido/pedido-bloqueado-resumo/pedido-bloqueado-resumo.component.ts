@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PedidoBloqueadoResumo } from '../../../models/Pedido/pedido-bloqueado-resumo';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MessageService } from 'primeng/api';
@@ -14,9 +14,12 @@ import { throwError } from 'rxjs';
   styleUrls: ['./pedido-bloqueado-resumo.component.scss'],
   providers: [DialogService, MessageService],
 })
-export class PedidoBloqueadoResumoComponent implements OnInit {
+export class PedidoBloqueadoResumoComponent {
   @Input()
   public pedidoBloqueadoResumo!: PedidoBloqueadoResumo;
+
+  @Output()
+  public recarregarPedidos = new EventEmitter();
 
   private ref!: DynamicDialogRef;
 
@@ -25,8 +28,6 @@ export class PedidoBloqueadoResumoComponent implements OnInit {
     private messageService: MessageService,
     private pedidoBloqueadoService: PedidoBloqueadoService
   ) {}
-
-  ngOnInit(): void {}
 
   mostrarDetalhe(): void {
     this.ref = this.dialogService.open(PedidoDetalhesComponent, {
@@ -54,9 +55,10 @@ export class PedidoBloqueadoResumoComponent implements OnInit {
               )
             )
           )
-          .subscribe(() =>
-            this.messageService.add({ key: 'tc', severity: 'success', summary: 'Desbloqueio', detail: 'Pedido desbloqueado com sucesso!' })
-          );
+          .subscribe(() => {
+            this.messageService.add({ key: 'tc', severity: 'success', summary: 'Desbloqueio', detail: 'Pedido desbloqueado com sucesso!' });
+            this.recarregarPedidos.emit(undefined);
+          });
       }
     });
   }

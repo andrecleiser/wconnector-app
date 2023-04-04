@@ -8,15 +8,14 @@
       </div>
     </form>
 
-    <ng-container *ngIf="listaFiltradaPedidosBloqueados && listaFiltradaPedidosBloqueados.length > 0; then dados; else progress">
-    </ng-container>
-    <ng-template #progress>
-      <p-progressBar mode="indeterminate" [style]="{ height: '6px' }"></p-progressBar>
-    </ng-template>
-    <ng-template #dados>
+    <ng-container *ngIf="listaFiltradaPedidosBloqueados && listaFiltradaPedidosBloqueados.length > 0">
       <div *ngFor="let pedidoBloqueadoResumo of listaFiltradaPedidosBloqueados" class="col-12 col-md-6 col-lg-4">
-        <jhi-pedido-bloqueado-detalhe [pedidoBloqueadoResumo]="pedidoBloqueadoResumo"></jhi-pedido-bloqueado-detalhe>
+        <jhi-pedido-bloqueado-detalhe
+          (recarregarPedidos)="obterPedidosBloqueados()"
+          [pedidoBloqueadoResumo]="pedidoBloqueadoResumo"
+        ></jhi-pedido-bloqueado-detalhe>
       </div>
-    </ng-template>
+    </ng-container>
+    <p-progressBar *ngIf="carregando" mode="indeterminate" [style]="{ height: '6px' }"></p-progressBar>
   </div>
 </div>
