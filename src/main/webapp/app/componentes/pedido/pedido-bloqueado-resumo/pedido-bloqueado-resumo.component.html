@@ -1,6 +1,6 @@
-<div class="card">
+<div class="card shadow">
   <div class="card-header">
-    <span class="titulo-card">Pedido bloqueado</span>
+    <span class="titulo-card">Pedido bloqueado: {{ pedidoBloqueadoResumo.id }}</span>
   </div>
   <div class="card-body">
     <span class="card-title titulo-card">Vendedor</span>
@@ -16,11 +16,18 @@
     <span class="card-title titulo-card">Entrada</span>
     <p class="card-text">{{ pedidoBloqueadoResumo.dataEntrada | date: 'dd-MM-yyyy' }}</p>
     <p class="card-title titulo-card">Bloqueio(s)</p>
-
-    <p-tag *ngFor="let tipoBloqueio of pedidoBloqueadoResumo.tiposBloqueio" class="tag-pedido-bloqueado" severity="danger" [rounded]="true">
-      {{ tipoBloqueio }}
-    </p-tag>
+    <div class="altura-tags">
+      <p-tag
+        *ngFor="let tipoBloqueio of pedidoBloqueadoResumo.tiposBloqueio"
+        class="tag-pedido-bloqueado"
+        severity="danger"
+        [rounded]="true"
+      >
+        {{ tipoBloqueio }}
+      </p-tag>
+    </div>
     <hr />
-    <button class="btn btn-primary">Detalhar</button>
+    <p-toast position="top-center" key="tc"></p-toast>
+    <button (click)="mostrarDetalhe()" pButton type="button" label="Detalhar" class="p-button-rounded p-button-sm"></button>
   </div>
 </div>

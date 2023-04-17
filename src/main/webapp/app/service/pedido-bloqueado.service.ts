@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IPedidoBloqueadoResumo } from '../models/Pedido/pedido-bloqueado-resumo';
+import { PedidoBloqueadoResumo } from '../models/Pedido/pedido-bloqueado-resumo';
+import { ItemPedido } from '../models/Pedido/item-pedido';
+import { BloqueioPedido } from '../models/Pedido/bloqueio-pedido';
+import { DesbloqueioPedido } from '../models/Pedido/desbloqueio-pedido';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +12,19 @@ import { IPedidoBloqueadoResumo } from '../models/Pedido/pedido-bloqueado-resumo
 export class PedidoBloqueadoService {
   constructor(private http: HttpClient) {}
 
-  public getAllPedidosBloqueados(): Observable<IPedidoBloqueadoResumo[]> {
-    return this.http.get<IPedidoBloqueadoResumo[]>('api/pedidos-bloqueados/all');
+  public getAllPedidosBloqueados(): Observable<PedidoBloqueadoResumo[]> {
+    return this.http.get<PedidoBloqueadoResumo[]>('api/pedidos/bloqueados');
+  }
+
+  public getItensPedido(idPedido: string): Observable<ItemPedido[]> {
+    return this.http.get<ItemPedido[]>(`api/pedidos/${idPedido}/itens`);
+  }
+
+  public getBloqueiosPedido(idPedido: string): Observable<BloqueioPedido[]> {
+    return this.http.get<BloqueioPedido[]>(`api/pedidos/${idPedido}/bloqueios`);
+  }
+
+  public desbloquearPedido(idPedido: string, desbloqueioPedido: DesbloqueioPedido): Observable<void> {
+    return this.http.patch<void>(`api/pedidos/${idPedido}/desbloquear`, desbloqueioPedido);
   }
 }

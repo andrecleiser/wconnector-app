@@ -1,0 +1,70 @@
+<div class="card">
+  <div class="card-body">
+    <p class="card-text titulo-card titulo-card-center">DADOS DO PEDIDO</p>
+    <div class="card">
+      <div class="card-body">
+        <span class="card-title titulo-card">Cliente</span>
+        <p class="card-text">{{ dadosPedido.cliente }}</p>
+        <span class="card-title titulo-card">Vendedor</span>
+        <p class="card-text">{{ dadosPedido.vendedor }}</p>
+        <span class="card-title titulo-card">Pedido</span>
+        <p class="card-text">{{ dadosPedido.id }}</p>
+        <span class="card-title titulo-card">Data de Emissão</span>
+        <p class="card-text">{{ dadosPedido.dataEmissao | date: 'dd-MM-yyyy' }}</p>
+        <span class="card-title titulo-card">Valor</span>
+        <p class="card-text">{{ dadosPedido.valor | currency }}</p>
+      </div>
+    </div>
+    <ng-template #progress>
+      <p-progressBar mode="indeterminate" [style]="{ height: '6px' }"></p-progressBar>
+    </ng-template>
+    <ng-container *ngIf="itensPedido$ | async as itensPedidos; else progress">
+      <p class="card-text titulo-card titulo-card-center">ITENS DO PEDIDO</p>
+      <div *ngFor="let itemPedido of itensPedidos" class="card">
+        <div class="card-body">
+          <span class="card-title titulo-card">Nº Item</span>
+          <p class="card-text">{{ itemPedido.numeroItem }}</p>
+          <span class="card-title titulo-card">Descrição</span>
+          <p class="card-text">{{ itemPedido.codigoProduto }} - {{ itemPedido.descricaoProduto }}</p>
+          <span class="card-title titulo-card">Quantidade</span>
+          <p class="card-text">{{ itemPedido.quantidade }}</p>
+          <span class="card-title titulo-card">Volume</span>
+          <p class="card-text">{{ itemPedido.volume }}</p>
+          <span class="card-title titulo-card">Custo</span>
+          <p class="card-text">{{ itemPedido.valorCustoMedio | currency }}</p>
+          <span class="card-title titulo-card">Valor unitário</span>
+          <p class="card-text">{{ itemPedido.valorUnitario | currency }}</p>
+          <span class="card-title titulo-card">Valor item</span>
+          <p class="card-text">{{ itemPedido.valorItem | currency }}</p>
+          <span class="card-title titulo-card">%MB</span>
+          <p class="card-text">{{ itemPedido.percentualMB | percent: '1.2-2' }}</p>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="bloqueiosPedido$ | async as bloqueiosPedido; else progress">
+      <p class="card-text titulo-card titulo-card-center">BLOQUEIOS DO PEDIDO</p>
+      <div *ngFor="let bloqueioPedido of bloqueiosPedido" class="card" style="margin-top: 10px; padding: 10px 10px 10px">
+        <div class="card-body">
+          <span class="card-title titulo-card">Data do bloqueio</span>
+          <p class="card-text">{{ bloqueioPedido.dataBloqueio | date: 'dd-MM-yyyy' }}</p>
+          <span class="card-title titulo-card">Motivo</span>
+          <p class="card-text">{{ bloqueioPedido.motivo }}</p>
+        </div>
+        <button (click)="confirmarDesbloqueio(bloqueioPedido)" type="submit" class="btn btn-primary">Desbloquear</button>
+      </div>
+    </ng-container>
+  </div>
+</div>
+<div class="mb-3 mt-lg-3">
+  <label for="justificativa" class="form-label">Justificativa ao desbloqueio</label>
+  <input
+    #justificativa
+    type="email"
+    class="form-control"
+    id="justificativa"
+    placeholder="Indique uma justificativa ao desbloqueio"
+    maxlength="120"
+  />
+  <small>Máximo 120 caracteres</small>
+</div>
+<p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>

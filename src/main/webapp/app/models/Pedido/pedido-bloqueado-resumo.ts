@@ -1,7 +1,7 @@
-import { TipoBloqueioEnum } from './TipoBloqueioEnum';
+import { TipoBloqueioEnum } from './tipo-bloqueio-enum';
 
-export interface IPedidoBloqueadoResumo {
-  id?: number;
+export interface PedidoBloqueadoResumo {
+  id?: string;
   vendedor?: string;
   cliente?: string;
   filial?: string;

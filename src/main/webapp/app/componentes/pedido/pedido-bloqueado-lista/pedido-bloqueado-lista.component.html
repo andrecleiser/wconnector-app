@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row g-3">
+    <form [formGroup]="formConsulta">
+      <div class="flex flex-column gap-2">
+        <label htmlFor="labelFiltro">Filtrar</label>
+        <input pInputText id="labelFiltro" aria-describedby="labelFiltro-texto" formControlName="editFiltro" />
+        <small id="labelFiltro-texto">Filtrar por vendedor, cliente ou filial</small>
+      </div>
+    </form>
+
+    <ng-container *ngIf="listaFiltradaPedidosBloqueados && listaFiltradaPedidosBloqueados.length > 0">
+      <div *ngFor="let pedidoBloqueadoResumo of listaFiltradaPedidosBloqueados" class="col-12 col-md-6 col-lg-4">
+        <jhi-pedido-bloqueado-detalhe
+          (recarregarPedidos)="obterPedidosBloqueados()"
+          [pedidoBloqueadoResumo]="pedidoBloqueadoResumo"
+        ></jhi-pedido-bloqueado-detalhe>
+      </div>
+    </ng-container>
+    <p-progressBar *ngIf="carregando" mode="indeterminate" [style]="{ height: '6px' }"></p-progressBar>
+  </div>
+</div>
