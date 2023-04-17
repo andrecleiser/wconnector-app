@@ -153,9 +153,7 @@ jhipster:
     name: 'wConnectorApp'
   # By default CORS is disabled. Uncomment to enable.
   cors:
-    # Allow Ionic for JHipster by default (* no longer allowed in Spring Boot 2.4+)
-    allowed-origins: 'https://wconnector.coremal.com.br,https://localhost:8100,http://localhost:9000,https://localhost:9000,http://localhost:4200,https://localhost:4200'
-    # Enable CORS when running in GitHub Codespaces
+    allowed-origins: 'https://wconnector.coremal.com.br,http://localhost:8100,http://localhost:9000'
     allowed-methods: '*'
     allowed-headers: '*'
     exposed-headers: 'Authorization,Link,X-Total-Count,X-${jhipster.clientApp.name}-alert,X-${jhipster.clientApp.name}-error,X-${jhipster.clientApp.name}-params'
@@ -179,10 +177,9 @@ jhipster:
     content-security-policy: "default-src 'self'; frame-src 'self' data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://storage.googleapis.com; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com data:"
     authentication:
       jwt:
-        base64-secret: NDY1MjIyODFkMWE4MGI2OGM5NzJhY2Y1M2M2NDRjMGExMGJjMDg5ZTU4YWVkMmZkNjA3ODZjMzI4Mjg0ZmU5MzZlMTQ2ODhlZjI2MTA2ZTllMDRmODBhOWU1MGJjNWVmZjgwNGE3NWMxM2YxNDUyMGY4OTNhNmY5NDhmOGU5NDU=
+        base64-secret:
         token-validity-in-seconds: 86400
         token-validity-in-seconds-for-remember-me: 2592000
-
 # ===================================================================
 # Application specific properties
 # Add your own application properties here, see the ApplicationProperties class
