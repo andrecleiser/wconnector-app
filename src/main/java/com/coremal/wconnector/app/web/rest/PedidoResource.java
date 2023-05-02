@@ -22,12 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/api/pedidos")
 @Slf4j
+@Secured(AuthoritiesConstants.ACESSWCON)
 public class PedidoResource {
 
     private final PedidoBloqueadoConnectorClient pedidoBloqueadoConnectorClient;
 
     @GetMapping("bloqueados")
-    @Secured(AuthoritiesConstants.USER)
     public ResponseEntity<List<PedidoBloqueadoResumo>> getPedidosBloqueados() {
         log.debug("REST request para obter pedidos bloqueados.");
         var pedidosBloqueados = this.pedidoBloqueadoConnectorClient.obterBloqueadosPedidos();
@@ -35,21 +35,18 @@ public class PedidoResource {
     }
 
     @GetMapping("{pedidoId}/itens")
-    @Secured(AuthoritiesConstants.USER)
     public ResponseEntity<List<ItemPedidoDetalhe>> obterItensPedido(@PathVariable String pedidoId) {
         log.debug("[Request] Obter itens do pedido {}.", pedidoId);
         return ResponseEntity.ok().body(this.pedidoBloqueadoConnectorClient.obterItensPedido(pedidoId));
     }
 
     @GetMapping("{pedidoId}/bloqueios")
-    @Secured(AuthoritiesConstants.USER)
     public ResponseEntity<List<BloqueioPedidoResumo>> obterBloqueiosPedido(@PathVariable String pedidoId) {
         log.debug("[Request] Obter bloqueios do pedido {}.", pedidoId);
         return ResponseEntity.ok().body(this.pedidoBloqueadoConnectorClient.obterBloqueiosPedido(pedidoId));
     }
 
     @PatchMapping("{pedidoId}/desbloquear")
-    @Secured(AuthoritiesConstants.USER)
     public void desbloquearPedido(@PathVariable String pedidoId, @RequestBody DesbloquearPedido desbloquearPedido) {
         log.debug("[Request] Retirar bloqueio {} do pedido {}.", desbloquearPedido, pedidoId);
         this.pedidoBloqueadoConnectorClient.desbloquearPedido(pedidoId, desbloquearPedido);
