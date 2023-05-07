@@ -13,12 +13,6 @@
 # http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 # ===================================================================
 
-logging:
-  level:
-    ROOT: INFO
-    tech.jhipster: INFO
-    com.coremal.wconnector.app: INFO
-
 management:
   metrics:
     export:
@@ -79,7 +73,7 @@ jhipster:
         # - In the JHipster Registry (which includes a Spring Cloud Config server)
         # - In a separate `application-prod.yml` file, in the same folder as your executable JAR file
         # - In the `JHIPSTER_SECURITY_AUTHENTICATION_JWT_BASE64_SECRET` environment variable
-        base64-secret: ODQyYzNkOGY1MGY5ZmY3NTA0NTQ4MDVmYTQ2ODc1MGRkOTg0ZjUwNGI3MGQyYzNiNmNmMjZiNzMwNzRmYjkyZTczZDE0ODNiYjhjMGYzNmNmZmI2MTBkNTEzODE0ODEwNGIxZDE3YmQ0ODgzYmFkNTRhOWMzN2FhZTU4YWM2ZDk=
+        base64-secret:
         # Token is valid 24 hours
         token-validity-in-seconds: 86400
         token-validity-in-seconds-for-remember-me: 2592000
