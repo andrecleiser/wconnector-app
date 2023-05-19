@@ -34,7 +34,7 @@ export class ErrorComponent implements OnInit, OnDestroy {
     this.errorMessage = '';
     if (this.errorKey) {
       this.translateService.get(this.errorKey).subscribe(translatedErrorMessage => {
-        this.errorMessage = translatedErrorMessage;
+        this.errorMessage = `${translatedErrorMessage}${history.state.moduloErro}`;
       });
     }
   }

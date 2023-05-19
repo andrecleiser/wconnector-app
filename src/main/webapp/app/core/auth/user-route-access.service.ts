@@ -15,6 +15,7 @@ export class UserRouteAccessService implements CanActivate {
       map(account => {
         if (account) {
           const authorities = route.data['authorities'];
+          const moduloErro = route.data['moduloErro'];
 
           if (!authorities || authorities.length === 0 || this.accountService.hasAnyAuthority(authorities)) {
             return true;
@@ -23,7 +24,7 @@ export class UserRouteAccessService implements CanActivate {
           if (isDevMode()) {
             console.error('User has not any of required authorities: ', authorities);
           }
-          this.router.navigate(['accessdenied']);
+          this.router.navigate(['accessdenied'], { state: { moduloErro } });
           return false;
         }
 

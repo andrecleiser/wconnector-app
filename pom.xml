@@ -7,7 +7,7 @@
 
     <groupId>com.coremal.wconnector.app</groupId>
     <artifactId>wconnector-app</artifactId>
-    <version>ENTREGA-2.0.1</version>
+    <version>ENTREGA-4.0.1</version>
     <packaging>jar</packaging>
     <name>WConnectorApp</name>
     <description>Description for wConnectorApp</description>
@@ -228,11 +228,6 @@
             <artifactId>metrics-core</artifactId>
         </dependency>
         <!-- jhipster-needle-maven-add-dependency -->
-
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-dependencies</artifactId>
@@ -251,7 +246,6 @@
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-commons</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>

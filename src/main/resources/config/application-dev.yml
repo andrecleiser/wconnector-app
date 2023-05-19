@@ -48,7 +48,7 @@ jhipster:
   # CORS is only enabled by default with the "dev" profile
   cors:
     # Allow Ionic for JHipster by default (* no longer allowed in Spring Boot 2.4+)
-    allowed-origins: 'https://wconnector.coremal.com.br,http://localhost:8100,https://localhost:8100,http://localhost:9000,https://localhost:9000,http://localhost:4200,https://localhost:4200'
+    allowed-origins: 'http://localhost:8100,https://localhost:8100,http://localhost:9000,https://localhost:9000,http://localhost:4200,https://localhost:4200'
     # Enable CORS when running in GitHub Codespaces
     allowed-origin-patterns: 'https://*.githubpreview.dev'
     allowed-methods: '*'
@@ -83,8 +83,3 @@ jhipster:
 # ===================================================================
 
 # application:
-wconnector-api:
-  recurso:
-    usuario: localhost:8081/api/usuarios
-    login: localhost:8081/api/login
-    pedidos-bloqueados: localhost:8081/api/pedidos-bloqueados

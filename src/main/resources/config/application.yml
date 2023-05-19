@@ -15,6 +15,13 @@
 # ===================================================================
 
 ---
+logging:
+  level:
+    ROOT: INFO
+    tech.jhipster: INFO
+    org.hibernate.SQL: INFO
+    com.coremal.wconnector.app: INFO
+
 # Conditionally disable springdoc on missing api-docs profile
 spring:
   config:
@@ -153,7 +160,7 @@ jhipster:
     name: 'wConnectorApp'
   # By default CORS is disabled. Uncomment to enable.
   cors:
-    allowed-origins: 'https://wconnector.coremal.com.br,http://localhost:8100,http://localhost:9000'
+    allowed-origins: 'http://localhost:8100,http://localhost:9000'
     allowed-methods: '*'
     allowed-headers: '*'
     exposed-headers: 'Authorization,Link,X-Total-Count,X-${jhipster.clientApp.name}-alert,X-${jhipster.clientApp.name}-error,X-${jhipster.clientApp.name}-params'
@@ -195,3 +202,4 @@ wconnector-api:
     usuario: localhost:8081/api/usuarios
     login: localhost:8081/api/login
     pedidos: localhost:8081/api/pedidos
+#    pedidos: https://wconnector.coremal.com.br/api/pedidos
