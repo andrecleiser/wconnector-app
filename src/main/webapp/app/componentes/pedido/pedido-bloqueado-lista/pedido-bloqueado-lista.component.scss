@@ -5,3 +5,7 @@ input {
 i {
   left: 1.75rem;
 }
+
+::ng-deep .p-dropdown {
+  width: 100%;
+}

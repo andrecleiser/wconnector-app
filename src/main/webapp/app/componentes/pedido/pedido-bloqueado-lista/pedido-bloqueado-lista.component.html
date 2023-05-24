@@ -1,10 +1,32 @@
 <div class="container">
   <div class="row g-3">
     <form [formGroup]="formConsulta">
-      <div class="flex flex-column gap-2">
-        <label htmlFor="labelFiltro">Filtrar</label>
-        <input pInputText id="labelFiltro" aria-describedby="labelFiltro-texto" formControlName="editFiltro" />
-        <small id="labelFiltro-texto">Filtrar por vendedor, cliente ou filial</small>
+      <div class="d-flex flex-md-row flex-column">
+        <div class="flex-fill m-1">
+          <label htmlFor="labelFiltro">Filtrar por vendedor ou cliente</label>
+          <input pInputText id="labelFiltro" aria-describedby="labelFiltro-texto" formControlName="editFiltro" />
+        </div>
+        <div class="flex-fill m-1">
+          <label>Filtrar por filial</label>
+          <p-dropdown
+            [options]="filiais"
+            formControlName="filialSelecionada"
+            placeholder="Selecione uma filial"
+            [showClear]="true"
+            class="p-dropdown-lg"
+            (onChange)="filtrarPorFilial()"
+          ></p-dropdown>
+        </div>
+        <div class="flex-fill m-1">
+          <label>Filtrar por motivo</label>
+          <p-dropdown
+            [options]="motivosBloqueio"
+            formControlName="motivoSelecionado"
+            placeholder="Selecione um motivo"
+            [showClear]="true"
+            (onChange)="filtrarPorMotivo()"
+          ></p-dropdown>
+        </div>
       </div>
     </form>
 

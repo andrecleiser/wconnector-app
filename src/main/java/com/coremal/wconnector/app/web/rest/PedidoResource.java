@@ -6,7 +6,9 @@ import com.coremal.wconnector.app.domain.pedido.ItemPedidoDetalhe;
 import com.coremal.wconnector.app.domain.pedido.PedidoBloqueadoResumo;
 import com.coremal.wconnector.app.security.AuthoritiesConstants;
 import com.coremal.wconnector.app.service.client.PedidoBloqueadoConnectorClient;
+import com.coremal.wconnector.app.service.enums.MotivoBloqueioEnum;
 import java.util.List;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -50,5 +52,17 @@ public class PedidoResource {
     public void desbloquearPedido(@PathVariable String pedidoId, @RequestBody DesbloquearPedido desbloquearPedido) {
         log.debug("[Request] Retirar bloqueio {} do pedido {}.", desbloquearPedido, pedidoId);
         this.pedidoBloqueadoConnectorClient.desbloquearPedido(pedidoId, desbloquearPedido);
+    }
+
+    @GetMapping("filiais-pedidos-bloqueados")
+    public ResponseEntity<Set<String>> obterFiliaisComPedidosBloqueados() {
+        log.debug("[Request] Obter filiais com pedidos bloqueados.");
+        return ResponseEntity.ok().body(this.pedidoBloqueadoConnectorClient.obterFiliaisComPedidosBloqueados());
+    }
+
+    @GetMapping("motivos-bloqueio")
+    public ResponseEntity<Set<MotivoBloqueioEnum>> obterTiposBloqueio() {
+        log.debug("[Request] Obter .");
+        return ResponseEntity.ok().body(this.pedidoBloqueadoConnectorClient.obterMotivosBloqueioPedidosBloqueados());
     }
 }

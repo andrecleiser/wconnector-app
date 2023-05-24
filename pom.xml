@@ -7,7 +7,7 @@
 
     <groupId>com.coremal.wconnector.app</groupId>
     <artifactId>wconnector-app</artifactId>
-    <version>ENTREGA-5.0.0</version>
+    <version>wCoNNector-1.0.0</version>
     <packaging>jar</packaging>
     <name>WConnectorApp</name>
     <description>Description for wConnectorApp</description>
