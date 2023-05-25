@@ -7,6 +7,8 @@
 Bootstrap tweaks
 ===============================================================*/
 
+$verde-pochteca: #86b038;
+
 body,
 h1,
 h2,
@@ -22,6 +24,7 @@ a:hover {
 
 .dropdown-item:hover {
   color: $dropdown-link-hover-color;
+  background-color: $verde-pochteca;
 }
 
 /* ==========================================================================
@@ -77,8 +80,23 @@ Generic styles
   opacity: 1;
 }
 
+.dropdown-toggle::after {
+  color: black;
+}
+
 .footer {
+  bottom: 0;
+  width: 100%;
+  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
   border-top: 1px solid rgba(0, 0, 0, 0.125);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  background-color: white;
+  height: 2.2rem;
+  z-index: 10;
+  font-size: 80%;
+  color: black;
 }
 
 .hand,
@@ -217,5 +235,5 @@ angular-cli removes postcss-rtl processed inline css, processed rules must be ad
 }
 
 .verde-pochteca {
-  background-color: #86b038;
+  background-color: $verde-pochteca;
 }

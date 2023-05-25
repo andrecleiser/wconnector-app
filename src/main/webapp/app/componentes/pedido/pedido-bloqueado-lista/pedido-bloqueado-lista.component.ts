@@ -1,9 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PedidoBloqueadoResumo } from '../../../models/Pedido/pedido-bloqueado-resumo';
 import { PedidoBloqueadoService } from '../../../service/pedido-bloqueado.service';
-import { debounceTime, Subscription } from 'rxjs';
+import { debounceTime, Observable, Subscription } from 'rxjs';
 import { FilterMatchMode, FilterService } from 'primeng/api';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { BloqueioPedido } from '../../../models/Pedido/bloqueio-pedido';
+import { MotivoBloqueioEnumDescricaoMapper } from '../../../models/Pedido/motivo-bloqueio-enum';
 
 @Component({
   selector: 'jhi-pedido-bloqueado-lista',
@@ -17,8 +19,9 @@ export class PedidoBloqueadoListaComponent implements OnInit, OnDestroy {
   private editFiltro$ = new Subscription();
   private listaPedidosBloqueados!: PedidoBloqueadoResumo[];
   public carregando = false;
-  public filiais: string[] = ['00', '03'];
-  public motivosBloqueio: string[] = ['010101', '01010102'];
+  public filiais$!: Observable<string[]>;
+  public motivosBloqueio$!: Observable<string[]>;
+  private intervaloDatas: Date[] = [];
 
   constructor(
     private pedidoBloqueadoService: PedidoBloqueadoService,
@@ -27,10 +30,14 @@ export class PedidoBloqueadoListaComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.filiais$ = this.pedidoBloqueadoService.getFiliaisComPedidoBloqueado();
+    this.motivosBloqueio$ = this.pedidoBloqueadoService.getMotivosBloqueio();
+
     this.formConsulta = this.formBuilder.group({
       editFiltro: [''],
       filialSelecionada: [''],
       motivoSelecionado: [''],
+      intervaloDatas: [this.intervaloDatas],
     });
     this.obterPedidosBloqueados();
   }
@@ -74,12 +81,19 @@ export class PedidoBloqueadoListaComponent implements OnInit, OnDestroy {
     );
   }
 
-  filtrarPorMotivo(): void {
-    if (!this.motivoSelecionado) {
+  obterPedidosComFiltro(): void {
+    if (!this.motivoSelecionado && this.intervaloDatas.length == 0) {
       return;
     }
 
-    alert('buscar');
+    this.carregando = true;
+    this.pedidoBloqueadoService
+      .getAllPedidosBloqueados(MotivoBloqueioEnumDescricaoMapper[this.motivoSelecionado], this.intervaloDatas)
+      .subscribe(lista => {
+        this.listaPedidosBloqueados = lista;
+        this.listaFiltradaPedidosBloqueados = lista;
+      });
+    this.carregando = false;
   }
 
   private get filialSelecionada(): string {

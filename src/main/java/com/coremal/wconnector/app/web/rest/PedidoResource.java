@@ -7,6 +7,7 @@ import com.coremal.wconnector.app.domain.pedido.PedidoBloqueadoResumo;
 import com.coremal.wconnector.app.security.AuthoritiesConstants;
 import com.coremal.wconnector.app.service.client.PedidoBloqueadoConnectorClient;
 import com.coremal.wconnector.app.service.enums.MotivoBloqueioEnum;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -30,9 +32,14 @@ public class PedidoResource {
     private final PedidoBloqueadoConnectorClient pedidoBloqueadoConnectorClient;
 
     @GetMapping("bloqueados")
-    public ResponseEntity<List<PedidoBloqueadoResumo>> getPedidosBloqueados() {
+    public ResponseEntity<List<PedidoBloqueadoResumo>> getPedidosBloqueados(
+        @RequestParam(value = "filial", required = false) String filial,
+        @RequestParam(value = "tipoBloqueio", required = false) MotivoBloqueioEnum tipoBloqueio,
+        @RequestParam(value = "dataInicio", required = false) LocalDate dataInicio,
+        @RequestParam(value = "dataFim", required = false) LocalDate dataFim
+    ) {
         log.debug("REST request para obter pedidos bloqueados.");
-        var pedidosBloqueados = this.pedidoBloqueadoConnectorClient.obterBloqueadosPedidos();
+        var pedidosBloqueados = this.pedidoBloqueadoConnectorClient.obterBloqueadosPedidos(filial, tipoBloqueio, dataInicio, dataFim);
         return ResponseEntity.ok().body(pedidosBloqueados);
     }
 

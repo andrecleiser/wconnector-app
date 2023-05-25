@@ -7,10 +7,20 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { DropdownModule } from 'primeng/dropdown';
+import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
   declarations: [PedidoBloqueadoListaComponent],
   exports: [PedidoBloqueadoListaComponent],
-  imports: [CommonModule, PedidoBloqueadoResumoModule, TagModule, InputTextModule, ReactiveFormsModule, ProgressBarModule, DropdownModule],
+  imports: [
+    CommonModule,
+    PedidoBloqueadoResumoModule,
+    TagModule,
+    InputTextModule,
+    ReactiveFormsModule,
+    ProgressBarModule,
+    DropdownModule,
+    CalendarModule,
+  ],
 })
 export class PedidoBloqueadoListaModule {}
