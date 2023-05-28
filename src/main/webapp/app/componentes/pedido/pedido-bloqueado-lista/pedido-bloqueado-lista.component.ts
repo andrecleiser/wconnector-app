@@ -3,8 +3,7 @@ import { PedidoBloqueadoResumo } from '../../../models/Pedido/pedido-bloqueado-r
 import { PedidoBloqueadoService } from '../../../service/pedido-bloqueado.service';
 import { debounceTime, Observable, Subscription } from 'rxjs';
 import { FilterMatchMode, FilterService } from 'primeng/api';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { BloqueioPedido } from '../../../models/Pedido/bloqueio-pedido';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MotivoBloqueioEnumDescricaoMapper } from '../../../models/Pedido/motivo-bloqueio-enum';
 
 @Component({
@@ -13,15 +12,14 @@ import { MotivoBloqueioEnumDescricaoMapper } from '../../../models/Pedido/motivo
   styleUrls: ['./pedido-bloqueado-lista.component.scss'],
 })
 export class PedidoBloqueadoListaComponent implements OnInit, OnDestroy {
-  public listaFiltradaPedidosBloqueados!: PedidoBloqueadoResumo[];
-  public editFiltro!: FormControl;
-  public formConsulta!: FormGroup;
+  listaFiltradaPedidosBloqueados!: PedidoBloqueadoResumo[];
+  formConsulta!: FormGroup;
+  carregando = false;
+  filiais$!: Observable<string[]>;
+  motivosBloqueio$!: Observable<string[]>;
+
   private editFiltro$ = new Subscription();
   private listaPedidosBloqueados!: PedidoBloqueadoResumo[];
-  public carregando = false;
-  public filiais$!: Observable<string[]>;
-  public motivosBloqueio$!: Observable<string[]>;
-  private intervaloDatas: Date[] = [];
 
   constructor(
     private pedidoBloqueadoService: PedidoBloqueadoService,
@@ -37,7 +35,7 @@ export class PedidoBloqueadoListaComponent implements OnInit, OnDestroy {
       editFiltro: [''],
       filialSelecionada: [''],
       motivoSelecionado: [''],
-      intervaloDatas: [this.intervaloDatas],
+      intervaloDatas: [[]],
     });
     this.obterPedidosBloqueados();
   }
@@ -82,10 +80,6 @@ export class PedidoBloqueadoListaComponent implements OnInit, OnDestroy {
   }
 
   obterPedidosComFiltro(): void {
-    if (!this.motivoSelecionado && this.intervaloDatas.length == 0) {
-      return;
-    }
-
     this.carregando = true;
     this.pedidoBloqueadoService
       .getAllPedidosBloqueados(MotivoBloqueioEnumDescricaoMapper[this.motivoSelecionado], this.intervaloDatas)
@@ -102,5 +96,9 @@ export class PedidoBloqueadoListaComponent implements OnInit, OnDestroy {
 
   private get motivoSelecionado(): string {
     return this.formConsulta.controls['motivoSelecionado'].value;
+  }
+
+  private get intervaloDatas(): Date[] {
+    return this.formConsulta.controls['intervaloDatas'].value;
   }
 }

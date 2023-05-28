@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PedidoBloqueadoResumo } from '../models/Pedido/pedido-bloqueado-resumo';
 import { ItemPedido } from '../models/Pedido/item-pedido';
@@ -13,6 +13,8 @@ import dayjs from 'dayjs/esm';
   providedIn: 'root',
 })
 export class PedidoBloqueadoService {
+  private readonly FORMATO_DATA_NO_BACKEND = 'YYYY-MM-DD';
+
   constructor(private http: HttpClient) {}
 
   public getAllPedidosBloqueados(motivoBloqueio?: MotivoBloqueioEnum, datasExpedicao?: Date[]): Observable<PedidoBloqueadoResumo[]> {
@@ -26,19 +28,7 @@ export class PedidoBloqueadoService {
       params = params.append('tipoBloqueio', motivoBloqueio);
     }
 
-    if (datasExpedicao) {
-      if ((datasExpedicao.length = 1)) {
-        const dateToSend = dayjs(datasExpedicao[0]).format('YYYY-MM-DD').toString();
-        console.log(dateToSend);
-        params = params.append('dataInicio', dateToSend);
-      } else {
-        const dateToSend = dayjs(datasExpedicao[0]).format('YYYY-MM-DD').toString();
-        const dateToSend2 = dayjs(datasExpedicao[1]).format('YYYY-MM-DD').toString();
-        console.log(dateToSend);
-        console.log(dateToSend2);
-        params = params.append('dataInicio', dateToSend).append('dataFim', dateToSend2);
-      }
-    }
+    params = this.construirEnvioDatas(datasExpedicao, params);
 
     return this.http.get<PedidoBloqueadoResumo[]>('api/pedidos/bloqueados', { params });
   }
@@ -63,10 +53,23 @@ export class PedidoBloqueadoService {
     return this.http.get<string[]>(`api/pedidos/motivos-bloqueio`).pipe(
       map(motivos => {
         const motivosMapeados: string[] = [];
-        const teste = MotivoBloqueioEnumMapper[MotivoBloqueioEnum.BLQ_MB_MEDIO_MENOR_8_PERC];
         motivos.forEach(motivo => motivosMapeados.push(MotivoBloqueioEnumMapper[motivo]));
         return motivosMapeados.sort();
       })
     );
+  }
+
+  private construirEnvioDatas(datasExpedicao: Date[] | undefined, params: HttpParams): HttpParams {
+    if (!datasExpedicao) {
+      return params;
+    }
+
+    params = params.append('dataInicio', dayjs(datasExpedicao[0]).format(this.FORMATO_DATA_NO_BACKEND).toString());
+
+    if (datasExpedicao[1]) {
+      params = params.append('dataFim', dayjs(datasExpedicao[1]).format(this.FORMATO_DATA_NO_BACKEND).toString());
+    }
+
+    return params;
   }
 }

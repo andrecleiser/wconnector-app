@@ -34,8 +34,9 @@
             selectionMode="range"
             [readonlyInput]="true"
             [showClear]="true"
+            dateFormat="dd/mm/yy"
             (onClear)="obterPedidosComFiltro()"
-            (onClose)="obterPedidosComFiltro()"
+            (onClickOutside)="obterPedidosComFiltro()"
           ></p-calendar>
         </div>
       </div>
