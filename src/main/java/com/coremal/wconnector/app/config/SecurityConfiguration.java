@@ -72,6 +72,8 @@ public class SecurityConfiguration {
             .hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers("/api/login")
             .permitAll()
+            .antMatchers("/api/aplicacao-config/**")
+            .permitAll()
             .antMatchers("/api/admin/**")
             .hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers("/api/**")

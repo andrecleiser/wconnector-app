@@ -7,14 +7,16 @@
     <p class="card-text">{{ pedidoBloqueadoResumo.vendedor }}</p>
     <span class="card-title titulo-card">Cliente</span>
     <p class="card-text">{{ pedidoBloqueadoResumo.cliente }}</p>
-    <span class="card-title titulo-card">Filial</span>
-    <p class="card-text">{{ pedidoBloqueadoResumo.filial }}</p>
-    <span class="card-title titulo-card">Valor</span>
-    <p class="card-text">{{ pedidoBloqueadoResumo.valor | currency }}</p>
-    <span class="card-title titulo-card">Emissão</span>
-    <p class="card-text">{{ pedidoBloqueadoResumo.dataEmissao | date: 'dd-MM-yyyy' }}</p>
-    <span class="card-title titulo-card">Entrada</span>
-    <p class="card-text">{{ pedidoBloqueadoResumo.dataEntrada | date: 'dd-MM-yyyy' }}</p>
+    <div class="d-flex">
+      <div class="d-flex flex-column flex-grow-1">
+        <span class="card-title titulo-card">Filial</span>
+        <p class="card-text">{{ pedidoBloqueadoResumo.filial }}</p>
+      </div>
+      <div class="d-flex flex-column flex-grow-1">
+        <span class="card-title titulo-card">Valor</span>
+        <p class="card-text">{{ pedidoBloqueadoResumo.valor | currency }}</p>
+      </div>
+    </div>
     <p class="card-title titulo-card">Bloqueio(s)</p>
     <div class="altura-tags">
       <p-tag

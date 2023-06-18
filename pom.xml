@@ -6,8 +6,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.coremal.wconnector.app</groupId>
-    <artifactId>wconnector-app</artifactId>
-    <version>wCoNNector-1.0.0</version>
+    <artifactId>wCoNNector-app</artifactId>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
     <name>WConnectorApp</name>
     <description>Description for wConnectorApp</description>

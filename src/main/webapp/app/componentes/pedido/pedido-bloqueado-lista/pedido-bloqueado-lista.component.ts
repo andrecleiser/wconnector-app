@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PedidoBloqueadoResumo } from '../../../models/Pedido/pedido-bloqueado-resumo';
 import { PedidoBloqueadoService } from '../../../service/pedido-bloqueado.service';
 import { debounceTime, Observable, Subscription } from 'rxjs';
-import { FilterMatchMode, FilterService } from 'primeng/api';
+import { FilterMatchMode, FilterService, PrimeNGConfig } from 'primeng/api';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MotivoBloqueioEnumDescricaoMapper } from '../../../models/Pedido/motivo-bloqueio-enum';
 
@@ -24,12 +24,32 @@ export class PedidoBloqueadoListaComponent implements OnInit, OnDestroy {
   constructor(
     private pedidoBloqueadoService: PedidoBloqueadoService,
     private filterService: FilterService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private config: PrimeNGConfig
   ) {}
 
   ngOnInit(): void {
     this.filiais$ = this.pedidoBloqueadoService.getFiliaisComPedidoBloqueado();
     this.motivosBloqueio$ = this.pedidoBloqueadoService.getMotivosBloqueio();
+
+    this.config.setTranslation({
+      dayNamesMin: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+      monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dec'],
+      monthNames: [
+        'Janeiro',
+        'Fevereiro',
+        'Março',
+        'Abril',
+        'Maio',
+        'Junho',
+        'Julho',
+        'Agosto',
+        'Setembro',
+        'Outubro',
+        'Novembro',
+        'Dezembro',
+      ],
+    });
 
     this.formConsulta = this.formBuilder.group({
       editFiltro: [''],
