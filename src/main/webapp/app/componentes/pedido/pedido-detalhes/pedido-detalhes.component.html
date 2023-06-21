@@ -38,6 +38,10 @@
           <p class="card-text">{{ itemPedido.valorItem | currency }}</p>
           <span class="card-title titulo-card">%MB</span>
           <p class="card-text">{{ itemPedido.percentualMB | percent: '1.2-2' }}</p>
+          <span class="card-title titulo-card">%MB Custo Médio</span>
+          <p class="card-text">{{ itemPedido.valorMbEmPercentual | number: '1.2-2' }}</p>
+          <span class="card-title titulo-card">%MB Custo Reposição</span>
+          <p class="card-text">{{ itemPedido.valorMbReposEmPercentual | number: '1.2-2' }}</p>
         </div>
       </div>
     </ng-container>

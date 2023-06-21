@@ -19,4 +19,6 @@ public class ItemPedidoDetalhe implements Serializable {
     private BigDecimal valorUnitario;
     private BigDecimal valorCustoMedio;
     private BigDecimal percentualMB;
+    private BigDecimal valorMbEmPercentual;
+    private BigDecimal valorMbReposEmPercentual;
 }

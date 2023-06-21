@@ -9,4 +9,6 @@ export interface ItemPedido {
   valorUnitario?: number;
   valorCustoMedio?: number;
   percentualMB?: number;
+  valorMbEmPercentual?: number;
+  valorMbReposEmPercentual?: number;
 }
